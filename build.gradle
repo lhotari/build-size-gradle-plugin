@@ -11,10 +11,14 @@ repositories {
   jcenter()
 }
 
+ext {
+    jacksonVersion = '2.6.6'
+}
+
 dependencies {
   compile gradleApi()
-  compile "com.fasterxml.jackson.core:jackson-core:2.6.6"
-  compile "com.fasterxml.jackson.core:jackson-databind:2.6.6"
+  compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+  compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 }
 
 version = "0.1"
@@ -32,4 +36,33 @@ pluginBundle {
       displayName = 'Build size information'
     }
   }
+}
+
+task generateScriptPlugin {
+    inputs.file file("src/main/groovy/io/github/lhotari/buildsize/BuildSizePlugin.groovy")
+    def outputFile = new File(buildDir, "buildSize.gradle")
+    outputs.file outputFile
+    doLast {
+        copy {
+            from 'src/main/groovy/io/github/lhotari/buildsize/BuildSizePlugin.groovy'
+            into buildDir
+            rename 'BuildSizePlugin.groovy', 'buildSize.gradle'
+            filter { String line ->
+                line.trim().startsWith('package io.github.lhotari.buildsize') ? null : line
+            }
+        }
+        outputFile.text = """
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+        classpath "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    }
+}
+        """ + outputFile.text + '''
+apply plugin: BuildSizePlugin        
+'''
+    }
 }
