@@ -1,14 +1,14 @@
 plugins {
-  id "com.gradle.plugin-publish" version "0.9.5"
-  id "groovy"
-  id "idea"
+    id "com.gradle.plugin-publish" version "0.9.5"
+    id "groovy"
+    id "idea"
 }
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
 
 repositories {
-  jcenter()
+    jcenter()
 }
 
 ext {
@@ -16,26 +16,26 @@ ext {
 }
 
 dependencies {
-  compile gradleApi()
-  compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
-  compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    compile gradleApi()
+    compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 }
 
 version = "0.2-SNAPSHOT"
 group = "io.github.lhotari.buildsize"
 
 pluginBundle {
-  website = 'https://github.com/lhotari/build-size-gradle-plugin'
-  vcsUrl = 'https://github.com/lhotari/build-size-gradle-plugin'
-  description = '''Plugin for generating JSON that shows build size and structure but doesn't reveal content. Names are masked.'''
-  tags = ['performance', 'testing']
+    website = 'https://github.com/lhotari/build-size-gradle-plugin'
+    vcsUrl = 'https://github.com/lhotari/build-size-gradle-plugin'
+    description = '''Plugin for generating JSON that shows build size and structure but doesn't reveal content. Names are masked.'''
+    tags = ['performance', 'testing']
 
-  plugins {
-    buildSizePlugin {
-      id = 'io.github.lhotari.buildsize'
-      displayName = 'Build size information'
+    plugins {
+        buildSizePlugin {
+            id = 'io.github.lhotari.buildsize'
+            displayName = 'Build size information'
+        }
     }
-  }
 }
 
 task generateScriptPlugin {
