@@ -2,9 +2,9 @@
 
 Gradle plugin for generating JSON that shows build size and structure but doesn't reveal content. Names are masked.
 
-### Usage
+## Usage
 
-#### Plugin
+### Installing the plugin
 
 Add plugin to build script
 ```
@@ -28,3 +28,8 @@ That task will create a single file `build/buildSize.gradle` that can be used in
 script plugin (`apply from: 'buildSize.gradle'`). This might be useful in environments where there is a policy
 to not use any external Gradle plugins.
 
+
+### Creating `buildsizeinfo.json` file
+
+The plugin adds a task called `buildSize` to the root project.
+Running that task produces `build\buildsizeinfo.json`, which contains the information.
