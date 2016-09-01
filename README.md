@@ -17,7 +17,7 @@ Then run the `buildSize` task. It creates a JSON file `build/buildsizeinfo.json`
 
 Example of prepending the plugin to the `build.gradle` file
 ```
-echo 'plugins { id "io.github.lhotari.buildsize" version "0.1" }' | cat - build.gradle > build.gradle.new
+echo 'plugins { id "io.github.lhotari.buildsize" version "0.3" }' | cat - build.gradle > build.gradle.new
 mv build.gradle.new build.gradle
 ```
 
