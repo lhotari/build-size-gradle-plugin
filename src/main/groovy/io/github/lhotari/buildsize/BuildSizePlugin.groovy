@@ -62,6 +62,9 @@ import java.util.regex.Pattern
 class BuildSizePlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
+        if (project != project.rootProject) {
+            throw new IllegalArgumentException("This plugin should only be applied to the root project.")
+        }
         project.tasks.create('buildSize', BuildSizeTask)
     }
 }
