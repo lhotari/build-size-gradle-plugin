@@ -216,8 +216,10 @@ class ReportingSession {
             jsonGenerator.writeNumberField("grandTotalLoc", grandTotalLoc)
             jsonGenerator.writeNumberField("grandTotalFileCount", grandTotalFileCount)
             jsonGenerator.writeNumberField("grandTotalSourceFileCount", grandTotalSourceFileCount)
-            jsonGenerator.writeNumberField("averageFilePathLength", (sumOfFilePathLengths / grandTotalFileCount) as Integer)
-            jsonGenerator.writeNumberField("averageFilePathDepth", (sumOfFilePathDepths / grandTotalFileCount) as Integer)
+            if (grandTotalFileCount != 0) {
+                jsonGenerator.writeNumberField("averageFilePathLength", (sumOfFilePathLengths / grandTotalFileCount) as Integer)
+                jsonGenerator.writeNumberField("averageFilePathDepth", (sumOfFilePathDepths / grandTotalFileCount) as Integer)
+            }
             jsonGenerator.writeNumberField("rootDirFilePathLength", task.project.rootDir.absolutePath.length())
             jsonGenerator.writeNumberField("rootDirFilePathDepth", pathDepth(task.project.rootDir))
 
@@ -234,7 +236,9 @@ class ReportingSession {
         jsonGenerator.writeStringField('project', resolvedMaskedProjectForConfiguration(largestRootConfiguration))
         jsonGenerator.writeStringField('configuration', maskConfigurationName(largestRootConfiguration))
         jsonGenerator.writeNumberField('largest_size', largestRootSize)
-        jsonGenerator.writeNumberField('average_size', (sumOfRootSizes / configurationCount) as Integer)
+        if (configurationCount != 0) {
+            jsonGenerator.writeNumberField('average_size', (sumOfRootSizes / configurationCount) as Integer)
+        }
         jsonGenerator.writeFieldName('graph')
         renderNode(largestRoot, processedIds, largestTreeResults)
         jsonGenerator.writeEndObject()
@@ -244,7 +248,9 @@ class ReportingSession {
         jsonGenerator.writeStringField('project', resolvedMaskedProjectForConfiguration(deepestRootConfiguration))
         jsonGenerator.writeStringField('configuration', maskConfigurationName(deepestRootConfiguration))
         jsonGenerator.writeNumberField('deepest_depth', deepestRootDepth)
-        jsonGenerator.writeNumberField('average_depth', (sumOfDepths / configurationCount) as Integer)
+        if (configurationCount != 0) {
+            jsonGenerator.writeNumberField('average_depth', (sumOfDepths / configurationCount) as Integer)
+        }
         jsonGenerator.writeArrayFieldStart('deepest_path')
         for (ComponentIdentifier componentIdentifier : deepestPath) {
             writeComponentIdentifier(componentIdentifier)
