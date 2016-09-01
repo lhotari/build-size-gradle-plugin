@@ -750,7 +750,7 @@ class ReportingSession {
     }
 
     void writeProjectSourceSets(Project subproject) {
-        getJavaPluginConvention(subproject).sourceSets.each { SourceSet sourceSet ->
+        getJavaPluginConvention(subproject)?.sourceSets?.each { SourceSet sourceSet ->
             long totalSizeInBytes = 0
             long sourceCodeSizeInBytes = 0
             int totalLoc = 0
@@ -837,7 +837,7 @@ class ReportingSession {
     }
 
     JavaPluginConvention getJavaPluginConvention(Project p) {
-        p.convention.getPlugin(JavaPluginConvention)
+        p.convention.findPlugin(JavaPluginConvention)
     }
 }
 
