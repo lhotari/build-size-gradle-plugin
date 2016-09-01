@@ -46,6 +46,7 @@ import org.gradle.api.internal.artifacts.configurations.ResolutionStrategyIntern
 import org.gradle.api.internal.artifacts.ivyservice.resolutionstrategy.DefaultCachePolicy
 import org.gradle.api.internal.artifacts.ivyservice.resolutionstrategy.DefaultResolutionStrategy
 import org.gradle.api.internal.tasks.options.Option
+import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.specs.Specs
 import org.gradle.api.tasks.Input
@@ -192,9 +193,11 @@ class ReportingSession {
                 jsonGenerator.writeStartObject()
                 jsonGenerator.writeStringField('name', maskProjectName(subproject))
 
-                jsonGenerator.writeArrayFieldStart('sourceSets')
-                writeProjectSourceSets(subproject)
-                jsonGenerator.writeEndArray()
+                if (subproject.getPlugins().hasPlugin(JavaPlugin)) {
+                    jsonGenerator.writeArrayFieldStart('sourceSets')
+                    writeProjectSourceSets(subproject)
+                    jsonGenerator.writeEndArray()
+                }
 
                 jsonGenerator.writeArrayFieldStart('configurations')
                 writeProjectConfigurations(subproject)
