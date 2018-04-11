@@ -9,7 +9,7 @@ Gradle plugin for generating JSON that shows build size and structure but doesn'
 Add plugin to build script
 ```
 plugins {
-  id "io.github.lhotari.buildsize" version "0.3"
+  id "io.github.lhotari.buildsize" version "0.4"
 }
 ```
 Then run the `buildSize` task. It creates a JSON file `build/buildsizeinfo.json`.
@@ -17,7 +17,7 @@ Then run the `buildSize` task. It creates a JSON file `build/buildsizeinfo.json`
 
 Example of prepending the plugin to the `build.gradle` file
 ```
-echo 'plugins { id "io.github.lhotari.buildsize" version "0.3" }' | cat - build.gradle > build.gradle.new
+echo 'plugins { id "io.github.lhotari.buildsize" version "0.4" }' | cat - build.gradle > build.gradle.new
 mv build.gradle.new build.gradle
 ```
 
