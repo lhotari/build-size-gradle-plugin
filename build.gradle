@@ -21,7 +21,7 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 }
 
-version = "0.5-SNAPSHOT"
+version = "0.5"
 group = "io.github.lhotari.buildsize"
 
 pluginBundle {
