@@ -591,8 +591,8 @@ class ReportingSession {
                 dependencyInfo.type = "project"
                 def projectDependency = ProjectDependency.cast(dependency)
                 dependencyInfo.project = maskProjectName(projectDependency.dependencyProject)
-                if (projectDependency.projectConfiguration && projectDependency.projectConfiguration.name != 'default') {
-                    dependencyInfo.configuration = maskConfigurationName(projectDependency.projectConfiguration)
+                if (projectDependency.targetConfiguration && projectDependency.targetConfiguration != 'default') {
+                    dependencyInfo.configuration = maskConfigurationName(projectDependency.targetConfiguration)
                 }
             } else if (dependency instanceof FileCollectionDependency) {
                 Set<File> files = FileCollectionDependency.cast(dependency).resolve()
@@ -613,8 +613,8 @@ class ReportingSession {
                 dependencyInfo.version = maskDependencyVersion(dependency.version)
                 dependencyInfo.type = 'module'
                 dependencyInfo.transitive = dependency.transitive
-                if (dependency.configuration && dependency.configuration != 'default') {
-                    dependencyInfo.configuration = maskConfigurationName(dependency.configuration)
+                if (dependency.targetConfiguration && dependency.targetConfiguration != 'default') {
+                    dependencyInfo.configuration = maskConfigurationName(dependency.targetConfiguration)
                 }
                 dependencyInfo.excludesRulesCount = dependency.excludeRules.size()
                 dependencyInfo.excludeRules = createExcludeRulesInfo(dependency.excludeRules)
@@ -714,7 +714,7 @@ class ReportingSession {
     String resolvedMaskedProjectForConfiguration(Configuration configuration) {
         ConfigurationInternal configurationInternal = (ConfigurationInternal) configuration
         // the project path can be found from ConfigurationInternal.getPath() String by removing the last segment
-        Path path = configurationInternal.path ? new Path(configurationInternal.path) : null
+        Path path = configurationInternal.path ? Path.path(configurationInternal.path) : null
         def projectPath = path?.parent?.toString()
         projectPath ? maskProjectNameByPath(projectPath) : null
     }
@@ -839,7 +839,7 @@ class ReportingSession {
     Collection<String> mergeAllPackages(Map<String, Set<String>> packagesPerExtension) {
         packagesPerExtension.values().collectMany([] as Set) { Set<String> packageNames ->
             packageNames
-        }
+        } as Collection<String>
     }
 
     JavaPluginConvention getJavaPluginConvention(Project p) {

@@ -1,5 +1,5 @@
 plugins {
-    id "com.gradle.plugin-publish" version "0.9.5"
+    id "com.gradle.plugin-publish" version "0.9.10"
     id "groovy"
     id "idea"
 }
@@ -12,7 +12,7 @@ repositories {
 }
 
 ext {
-    jacksonVersion = '2.6.6'
+    jacksonVersion = '2.9.5'
 }
 
 dependencies {
