@@ -287,7 +287,7 @@ class ReportingSession {
     }
 
     void writeProjectConfigurations(Project project) {
-        for (Configuration configuration : project.configurations) {
+        for (Configuration configuration : project.configurations.findAll { Configuration c -> c.isCanBeResolved() }) {
             //ResolutionResult result = configuration.getIncoming().getResolutionResult()
             //configuration.getResolvedConfiguration()
 
